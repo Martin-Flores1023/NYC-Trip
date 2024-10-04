@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYC Itinerary</title>
+    <link rel="stylesheet" href="itin_style.css">
+</head>
+<body>
+    <main class="container">
+        <h1>NYC Anniversary Vacation Itinerary</h1>
+
+        <form id="addForm">
+            <input type="text" id="itemInput" placeholder="Add an item to your itinerary" required>
+            <input type="number" id="dayInput" min="1" placeholder="Day #" required>
+            <button type="submit">Add Item</button>
+        </form>
+
+        <div id="itineraryContainer"></div>
+    </main>
+
+    <script>
+        // Predefined itinerary data
+        const predefinedItinerary = [
+            { text: "Flight SFO --> NYC", day: 1 },
+            { text: "Hotel Check-In", day: 1 },
+            { text: "Dinner", day: 1 },
+            { text: "Breakfast", day: 2 },
+            { text: "Visit the 9/11 Memorial", day: 2 },
+            { text: "Visit the Statue of Liberty", day: 2 },
+            { text: "Lunch", day: 2 },
+            { text: "Walk Brooklyn Bridge", day: 2 },
+            { text: "Anniversary Date Night", day: 2 },
+            { text: "Breakfast", day: 3 },
+            { text: "Explore Central Park", day: 3 },
+            { text: "Walk Fifth Avenue", day: 3 },
+            { text: "Lunch", day: 3 },
+            { text: "Rockefeller Center", day: 3 },
+            { text: "The Edge Lookout", day: 3 },
+            { text: "Dinner & Times Square", day: 3 },
+            { text: "Breakfast", day: 4 },
+            { text: "The MET Museum", day: 4 },
+            { text: "China Town/Little Italy -- Lunch", day: 4 },
+            { text: "Summit One", day: 4 },
+            { text: "Dinner", day: 4 },
+            { text: "Night Out Clubbing", day: 4 },
+            { text: "Sleep in & Breakfast", day: 5 },
+            { text: "Grab Food", day: 5 },
+            { text: "Flight NYC --> SFO", day: 5 },
+        ];
+
+        // Load the predefined itinerary when the page loads
+        document.addEventListener('DOMContentLoaded', loadItinerary);
+
+        document.getElementById('addForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const itemText = document.getElementById('itemInput').value;
+            const dayValue = document.getElementById('dayInput').value;
+
+            if (itemText && dayValue) {
+                const item = {
+                    text: itemText,
+                    day: parseInt(dayValue) // Store day as a number
+                };
+
+                // Add item to the itinerary list
+                addItemToList(item);
+
+                // Reset form inputs
+                document.getElementById('itemInput').value = '';
+                document.getElementById('dayInput').value = '';
+            }
+        });
+
+        // Function to add item to the list
+        function addItemToList(item) {
+            const itineraryContainer = document.getElementById('itineraryContainer');
+            let daySection = document.getElementById(`day${item.day}`);
+
+            // Create a new section for the day if it doesn't exist
+            if (!daySection) {
+                daySection = document.createElement('div');
+                daySection.id = `day${item.day}`;
+                daySection.innerHTML = `<h2>Day ${item.day}</h2>`;
+                itineraryContainer.appendChild(daySection);
+            }
+
+            const li = document.createElement('li');
+            li.textContent = item.text;
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = "Delete";
+            removeButton.className = "delete-btn"; // Add class for styling
+            removeButton.onclick = function() {
+                li.remove();
+            };
+
+            li.className = "itinerary-item"; // Add class for styling
+            li.appendChild(removeButton);
+            daySection.appendChild(li);
+        }
+
+        // Load the predefined itinerary data
+        function loadItinerary() {
+            // Sort predefined itinerary by day before adding to the list
+            predefinedItinerary.sort((a, b) => a.day - b.day);
+            predefinedItinerary.forEach(item => addItemToList(item));
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anniversary Vacation - NYC</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+    <main class="container">
+        <h1>New York City Anniversary Trip?</h1>
+        <div class="buttons">
+            <button id="yesButton" class="yes-btn">Yes!</button>
+            <button id="noButton" class="no-btn">No...</button>
+        </div>
+    </main>
+
+    <!-- Modal for No button confirmation -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p>Oh no! NYC is waiting for us... Are you sure?</p>
+            <button id="confirmButton" class="confirm-btn">Yes, I'm sure</button>
+            <button id="cancelButton" class="cancel-btn">No, take me back</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("yesButton").onclick = function() {
+            window.location.href = 'itinerary.html';
+        };
+
+        document.getElementById("noButton").onclick = function() {
+            // Show the modal when "No" is clicked
+            document.getElementById('modal').style.display = 'flex';
+        };
+
+        document.getElementById("confirmButton").onclick = function() {
+            // If they confirm "Yes, I'm sure", close the modal and redirect to a different page
+            document.getElementById('modal').style.display = 'none';
+            window.location.href = 'goodbye.html'; // Change the URL to where you want to redirect
+        };
+
+        document.getElementById("cancelButton").onclick = function() {
+            // Close the modal and do nothing
+            document.getElementById('modal').style.display = 'none';
+        };
+    </script>
+</body>
+</html>
+
